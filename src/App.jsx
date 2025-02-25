@@ -1,12 +1,14 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Button, Nav, Container, Navbar, Row, Col } from "react-bootstrap";
-import bg from "./img/jokebear.jpg";
+import shoes from './data.js'
+
 
 function App() {
+
+  let [shoes] = useState({shoes})
+
   return (
     <div className="App">
       <Navbar bg="dark" data-bs-theme="dark">
@@ -29,7 +31,7 @@ function App() {
               width="80%"
             />
             <h4>상품명</h4>
-            <p></p>
+            <p>상품설명</p>
           </Col>
           <Col xs={12} md={4}>
             <img
@@ -37,7 +39,7 @@ function App() {
               width="80%"
             />
             <h4>상품명</h4>
-            <p></p>
+            <p>상품설명</p>
           </Col>
           <Col xs={12} md={4}>
             <img
@@ -45,7 +47,7 @@ function App() {
               width="80%"
             />
             <h4>상품명</h4>
-            <p></p>
+            <p>상품설명</p>
           </Col>
         </Row>
       </Container>

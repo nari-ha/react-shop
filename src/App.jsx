@@ -1,16 +1,20 @@
-import { useState } from "react";
+import { createContext, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Button, Nav, Container, Navbar, Row, Col } from "react-bootstrap";
 import data from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./pages/Detail.jsx";
+import Cart from "./pages/Cart.jsx";
 import axios from "axios";
+
+export let Context1 = createContext();
 
 function App() {
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
   let [more, setMore] = useState(0);
+  let [stock, setStock] = useState([10, 11, 12]);
 
   return (
     <div className="App">
@@ -37,8 +41,8 @@ function App() {
         </Container>
       </Navbar>
 
-      <Link to="/">홈</Link>
-      <Link to="/detail">상세페이지</Link>
+      {/* <Link to="/">홈</Link>
+      <Link to="/detail">상세페이지</Link> */}
 
       <Routes>
         <Route
@@ -94,7 +98,17 @@ function App() {
             </>
           }
         />
-        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
+        <Route path="/detail/:id" element={
+          <Context1.Provider value={{ stock }}>
+            <Detail shoes={shoes} />
+          </Context1.Provider>
+        } />
+        <Route path="/cart" element = {
+          <div>
+            <Cart/>
+          </div>
+        }
+        />
         <Route path="/event" element={<EventPage />}>
           <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>} />
           <Route path="two" element={<div>생일기념 쿠폰받기</div>} />

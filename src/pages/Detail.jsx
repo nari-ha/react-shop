@@ -1,28 +1,35 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { Nav } from "react-bootstrap";
 
+import { Context1 } from './../App.jsx'
+
 function Detail(props) {
+
+  let {stock} = useContext(Context1);
+
   let { id } = useParams();
   let pid = props.shoes.find((x) => x.id == id);
   let [num, setNum] = useState("");
   let [alert, setAlert] = useState(true);
   let [tab, setTab] = useState(0);
+  let [tran, setTran] = useState('');
 
   useEffect(() => {
     let a = setTimeout(() => {
-      setAlert(false);
-    }, 2000);
+      setTran('end')
+    }, 200);
     return () => {
       //cleanup function
+      setTran('')
       clearTimeout(a);
     };
-  }, [num]);
+  }, []);
 
   return (
-    <div className="container">
-      {alert == true ? <Alert /> : null}
+    <div className={`container start ${tran}`}>
+      {/* {alert == true ? <Alert /> : null} */}
       <input
         onChange={(e) => {
           setNum(e.target.value);
@@ -59,13 +66,13 @@ function Detail(props) {
           <Nav.Link onClick={()=>{ setTab(2) }} eventKey="link2">버튼2</Nav.Link>
         </Nav.Item>
       </Nav>
-      <TabContent tab={tab}/>
+      <TabContent tab={tab} shoes={props.shoes}/>
     </div>
   );
 }
 
 
-function TabContent({tab}) {
+function TabContent({tab, shoes}) {
   // if (tab == 0) {
   //   return <div>내용1</div>
   // } else if (tab == 1) {
@@ -74,6 +81,7 @@ function TabContent({tab}) {
   //   return <div>내용3</div>
   // }
   let [fade, setFade] = useState('')
+  let { stock } = useContext(Context1);
 
   useEffect(()=>{
     let a = setTimeout(()=>{setFade('end')}, 100)
@@ -85,7 +93,7 @@ function TabContent({tab}) {
   }, [tab])
 
   return (<div className={`start ${fade}`}>
-    {[<div>내용1</div>,<div>내용2</div>,<div>내용3</div>][tab]}
+    {[<div>{shoes[0].title}내용1{stock}</div>,<div>내용2</div>,<div>내용3</div>][tab]}
   </div>)
 }
 

@@ -36,7 +36,9 @@ function App() {
             >
               Detail
             </Nav.Link>
-            <Nav.Link href="#contact">Contact</Nav.Link>
+            <Nav.Link onClick={() => {
+                navigate("/cart");
+              }}>Cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>

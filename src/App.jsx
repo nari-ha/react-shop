@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Button, Nav, Container, Navbar, Row, Col } from "react-bootstrap";
@@ -11,6 +11,20 @@ import axios from "axios";
 export let Context1 = createContext();
 
 function App() {
+
+  useEffect(()=>{
+    if (localStorage.getItem('watched')) {
+    } else {
+      localStorage.setItem('watched', JSON.stringify([]))
+    }
+  },[])
+  let watched = localStorage.getItem('watched');
+  watched = JSON.parse(watched);
+
+  // let obj = {name: 'kim'}
+  // localStorage.setItem('data', JSON.stringify(obj));
+  // let tmp = localStorage.getItem('data');
+  // console.log(JSON.parse(tmp));
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
   let [more, setMore] = useState(0);
@@ -45,6 +59,14 @@ function App() {
 
       {/* <Link to="/">홈</Link>
       <Link to="/detail">상세페이지</Link> */}
+      <h5>Recent clicked</h5>
+      <div>
+        {watched.map((e, i) =>{
+          return (
+            <div>{shoes[e].title}</div>
+          )
+        })}
+      </div>
 
       <Routes>
         <Route
@@ -62,7 +84,6 @@ function App() {
               {more == 2 ? null : (
                 <button
                   onClick={() => {
-                    <div className="alert alert-warning">로딩중입니다</div>
                     switch (more) {
                       case 0:
                         axios

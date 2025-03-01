@@ -18,6 +18,15 @@ function Detail(props) {
   let [tab, setTab] = useState(0);
   let [tran, setTran] = useState("");
 
+  useEffect(()=>{
+    let watched = localStorage.getItem('watched');
+    watched = JSON.parse(watched);
+    watched.push(pid.id);
+    watched = new Set(watched);
+    watched = Array.from(watched);
+    localStorage.setItem('watched', JSON.stringify(watched));
+  }, []);
+
   useEffect(() => {
     let a = setTimeout(() => {
       setTran("end");

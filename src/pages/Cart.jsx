@@ -7,6 +7,9 @@ import { changeCount, deleteItem } from './../store.jsx';
 function Cart() {
   let state = useSelector((state) => state);
   let dispatch = useDispatch();
+  let obj = {watched: ''}
+    // let obj = {name: 'kim'}
+  // localStorage.setItem('data', JSON.stringify(obj));
 
   return (
     <div>
